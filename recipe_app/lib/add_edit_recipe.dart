@@ -4,7 +4,7 @@ import '../models/recipe.dart';
 class AddEditRecipePage extends StatefulWidget {
   final Recipe? recipe;
 
-  AddEditRecipePage({this.recipe});
+  const AddEditRecipePage({super.key, this.recipe});
 
   @override
   _AddEditRecipePageState createState() => _AddEditRecipePageState();
@@ -46,43 +46,44 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
     showDialog(
       context: context,
       builder: (context) {
-        final _ingredientNameController = TextEditingController();
-        final _ingredientQuantityController = TextEditingController();
+        final ingredientNameController = TextEditingController();
+        final ingredientQuantityController = TextEditingController();
 
         return AlertDialog(
-          title: Text('Aggiungi Ingrediente'),
+          title: const Text('Aggiungi Ingrediente'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: _ingredientNameController,
-                decoration: InputDecoration(labelText: 'Nome Ingrediente'),
+                controller: ingredientNameController,
+                decoration:
+                    const InputDecoration(labelText: 'Nome Ingrediente'),
               ),
               TextField(
-                controller: _ingredientQuantityController,
-                decoration: InputDecoration(labelText: 'Quantità'),
+                controller: ingredientQuantityController,
+                decoration: const InputDecoration(labelText: 'Quantità'),
               ),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () {
-                if (_ingredientNameController.text.isNotEmpty &&
-                    _ingredientQuantityController.text.isNotEmpty) {
+                if (ingredientNameController.text.isNotEmpty &&
+                    ingredientQuantityController.text.isNotEmpty) {
                   setState(() {
                     _ingredients.add(Ingredient(
-                      name: _ingredientNameController.text,
-                      quantity: _ingredientQuantityController.text,
+                      name: ingredientNameController.text,
+                      quantity: ingredientQuantityController.text,
                     ));
                   });
                   Navigator.pop(context);
                 }
               },
-              child: Text('Aggiungi'),
+              child: const Text('Aggiungi'),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Annulla'),
+              child: const Text('Annulla'),
             ),
           ],
         );
@@ -105,7 +106,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
             children: [
               TextFormField(
                 controller: _titleController,
-                decoration: InputDecoration(labelText: 'Titolo'),
+                decoration: const InputDecoration(labelText: 'Titolo'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Inserisci un titolo';
@@ -115,7 +116,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Descrizione'),
+                decoration: const InputDecoration(labelText: 'Descrizione'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Inserisci una descrizione';
@@ -125,7 +126,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _preparationController,
-                decoration: InputDecoration(labelText: 'Preparazione'),
+                decoration: const InputDecoration(labelText: 'Preparazione'),
                 maxLines: 3,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -136,7 +137,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _imageUrlController,
-                decoration: InputDecoration(labelText: 'URL Immagine'),
+                decoration: const InputDecoration(labelText: 'URL Immagine'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Inserisci un URL per l\'immagine';
@@ -146,7 +147,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _difficultyController,
-                decoration: InputDecoration(labelText: 'Difficoltà'),
+                decoration: const InputDecoration(labelText: 'Difficoltà'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Inserisci la difficoltà';
@@ -157,7 +158,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               TextFormField(
                 controller: _cookingTimeController,
                 decoration:
-                    InputDecoration(labelText: 'Tempo di cottura (min)'),
+                    const InputDecoration(labelText: 'Tempo di cottura (min)'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -168,7 +169,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _servingsController,
-                decoration: InputDecoration(labelText: 'Porzioni'),
+                decoration: const InputDecoration(labelText: 'Porzioni'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -179,7 +180,8 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _preparationTimeController,
-                decoration: InputDecoration(labelText: 'Metodo di Cottura'),
+                decoration:
+                    const InputDecoration(labelText: 'Metodo di Cottura'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Inserisci il metodo di cottura';
@@ -189,8 +191,9 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               TextFormField(
                 controller: _costController,
-                decoration: InputDecoration(labelText: 'Costo (€)'),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: 'Costo (€)'),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Inserisci il costo';
@@ -198,12 +201,12 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _addIngredient,
-                child: Text('Aggiungi Ingrediente'),
+                child: const Text('Aggiungi Ingrediente'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Expanded(
                 child: ListView(
                   children: _ingredients.map((ingredient) {
@@ -214,7 +217,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
                   }).toList(),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

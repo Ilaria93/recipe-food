@@ -4,7 +4,7 @@ import '../models/recipe.dart';
 class RecipeDetail extends StatelessWidget {
   final Recipe recipe;
 
-  RecipeDetail({required this.recipe});
+  const RecipeDetail({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +33,23 @@ class RecipeDetail extends StatelessWidget {
                     children: [
                       Text(
                         'Difficoltà: ${recipe.difficulty}', // Aggiungi difficoltà
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Text(
                         'Tempo di cottura: ${recipe.cookingTime} minuti', // Aggiungi tempo di cottura
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Text(
                         'Tempo di preparazione: ${recipe.preparationTime} minuti', // Aggiungi tempo di preparazione
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Text(
                         'Porzioni: ${recipe.servings}', // Aggiungi porzioni
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                       Text(
                         'Costo: ${recipe.cost}', // Aggiungi costo
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   ),
@@ -60,23 +60,23 @@ class RecipeDetail extends StatelessWidget {
                       Icon(Icons.star,
                           color: Colors
                               .yellow[700]), // Esempio di icona per difficoltà
-                      Icon(Icons.timer,
+                      const Icon(Icons.timer,
                           color: Colors
                               .orange), // Esempio di icona per tempo di cottura
-                      Icon(Icons.timer,
+                      const Icon(Icons.timer,
                           color: Colors
                               .orange), // Esempio di icona per tempo di cottura
-                      Icon(Icons.person,
+                      const Icon(Icons.person,
                           color: Colors.blue), // Esempio di icona per porzioni
-                      Icon(Icons.euro,
+                      const Icon(Icons.euro,
                           color: Colors.blue), // Esempio di icona per porzioni
                     ],
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Ingredienti',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -86,46 +86,44 @@ class RecipeDetail extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Table(
                 border: TableBorder.all(),
-                columnWidths: {
-                  0: FlexColumnWidth(2),
-                  1: FlexColumnWidth(1),
+                columnWidths: const {
+                  0: const FlexColumnWidth(2),
+                  1: const FlexColumnWidth(1),
                 },
                 children: [
-                  TableRow(
+                  const TableRow(
                     children: [
                       TableCell(
                           child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Ingrediente'),
                       )),
                       TableCell(
                           child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Quantità'),
                       )),
                     ],
                   ),
-                  ...recipe.ingredients
-                      .map((ingredient) => TableRow(
-                            children: [
-                              TableCell(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(ingredient.name),
-                              )),
-                              TableCell(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(ingredient.quantity),
-                              )),
-                            ],
-                          ))
-                      .toList(),
+                  ...recipe.ingredients.map((ingredient) => TableRow(
+                        children: [
+                          TableCell(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(ingredient.name),
+                          )),
+                          TableCell(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(ingredient.quantity),
+                          )),
+                        ],
+                      )),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Preparazione',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

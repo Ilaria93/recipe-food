@@ -44,11 +44,13 @@ class RecipeList extends StatelessWidget {
     ),
   ];
 
+  RecipeList({super.key}) : super();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista di Ricette'),
+        title: const Text('Lista di Ricette'),
       ),
       body: ListView.builder(
         itemCount: recipes.length,
@@ -75,7 +77,7 @@ class RecipeList extends StatelessWidget {
             ),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

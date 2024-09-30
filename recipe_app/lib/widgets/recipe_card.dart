@@ -5,14 +5,14 @@ class RecipeCard extends StatelessWidget {
   final Recipe recipe;
   final VoidCallback onTap;
 
-  RecipeCard({required this.recipe, required this.onTap});
+  const RecipeCard({super.key, required this.recipe, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: ListTile(
-        contentPadding: EdgeInsets.all(8),
+        contentPadding: const EdgeInsets.all(8),
         title: Text(recipe.title),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +23,7 @@ class RecipeCard extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               recipe.description,
               maxLines: 2,
