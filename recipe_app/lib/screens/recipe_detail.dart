@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/recipe.dart';
+import '../../models/recipe.dart';
 
 class RecipeDetail extends StatelessWidget {
   final Recipe recipe;
@@ -40,7 +40,7 @@ class RecipeDetail extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                       Text(
-                        'Tempo di preparazione: ${recipe.preparationTime} minuti', // Aggiungi tempo di preparazione
+                        'Tempo di preparazione: ${recipe.cookingMethod} minuti', // Aggiungi tempo di preparazione
                         style: const TextStyle(fontSize: 16),
                       ),
                       Text(
@@ -110,12 +110,12 @@ class RecipeDetail extends StatelessWidget {
                           TableCell(
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(ingredient.name),
+                            child: Text(ingredient.name ?? ''),
                           )),
                           TableCell(
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(ingredient.quantity),
+                            child: Text(ingredient.quantity ?? ''),
                           )),
                         ],
                       )),

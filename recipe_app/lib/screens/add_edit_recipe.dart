@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/recipe.dart';
+// import '../db/database_helper.dart';
+import '../../models/recipe.dart';
 
 class AddEditRecipePage extends StatefulWidget {
   final Recipe? recipe;
@@ -19,7 +20,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
   final TextEditingController _difficultyController = TextEditingController();
   final TextEditingController _cookingTimeController = TextEditingController();
   final TextEditingController _servingsController = TextEditingController();
-  final TextEditingController _preparationTimeController =
+  final TextEditingController _cookingMethodController =
       TextEditingController();
   final TextEditingController _costController = TextEditingController();
 
@@ -36,7 +37,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
       _difficultyController.text = widget.recipe!.difficulty;
       _cookingTimeController.text = widget.recipe!.cookingTime.toString();
       _servingsController.text = widget.recipe!.servings.toString();
-      _preparationTimeController.text = widget.recipe!.preparationTime;
+      _cookingMethodController.text = widget.recipe!.cookingMethod;
       _costController.text = widget.recipe!.cost.toString();
       _ingredients = widget.recipe!.ingredients;
     }
@@ -179,7 +180,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
                 },
               ),
               TextFormField(
-                controller: _preparationTimeController,
+                controller: _cookingMethodController,
                 decoration:
                     const InputDecoration(labelText: 'Metodo di Cottura'),
                 validator: (value) {
@@ -219,7 +220,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     final newRecipe = Recipe(
                       title: _titleController.text,
@@ -227,21 +228,20 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
                       preparation: _preparationController.text,
                       imageUrl: _imageUrlController.text,
                       difficulty: _difficultyController.text,
-                      cookingTime: _cookingTimeController.text,
+                      cookingTime: int.parse(_cookingTimeController.text),
                       servings: int.parse(_servingsController.text),
-                      preparationTime: _preparationTimeController.text,
-                      cost: _costController.text,
+                      cookingMethod: _cookingMethodController.text,
+                      cost: double.parse(_costController.text),
                       ingredients: _ingredients,
                     );
 
                     if (widget.recipe == null) {
                       // Aggiungi nuova ricetta
-                      // Qui dovresti salvare la ricetta nel database
+                      // await DatabaseHelper().insertRecipe(newRecipe);
                     } else {
                       // Modifica ricetta esistente
-                      // Qui dovresti aggiornare la ricetta nel database
+                      // await DatabaseHelper().updateRecipe(newRecipe);
                     }
-
                     Navigator.pop(context);
                   }
                 },

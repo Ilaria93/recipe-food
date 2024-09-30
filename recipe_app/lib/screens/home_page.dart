@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'recipe_list.dart';
+import 'recipe_list.dart'; // Importa la schermata della lista delle ricette
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          // Sfondo con immagine
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          // Posiziona gli elementi sulla pagina
           Positioned(
             top: MediaQuery.of(context).viewInsets.top + kToolbarHeight,
             left: 0,
@@ -28,35 +30,64 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // Titolo "Benvenuto!"
                     const Text(
                       'Benvenuto!',
                       style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                    Expanded(child: Container()), // Spazio tra le due sezioni
+                    const Expanded(
+                        child: SizedBox()), // Spazio tra le due sezioni
                     Center(
                       child: SizedBox(
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            // Sottotitolo che introduce la lista
                             const Text(
                               'Ecco la lista delle tue ricette:',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                              textAlign: TextAlign
+                                  .center, // Centra il testo orizzontalmente
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
                             ),
+
                             const SizedBox(height: 40),
+                            // Bottone per navigare alla lista delle ricette
                             ElevatedButton(
                               onPressed: () {
+                                // Naviga alla pagina della lista delle ricette
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => RecipeList()),
+                                    builder: (context) => RecipeList(),
+                                  ),
                                 );
                               },
-                              child: const Text('Vai alla Lista delle Ricette'),
+                              style: ElevatedButton.styleFrom(
+                                // Cambia il colore di sfondo del bottone
+                                backgroundColor:
+                                    Colors.orangeAccent, // Colore del bottone
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                'Vai alla Lista delle Ricette',
+                                style: TextStyle(
+                                  // Cambia il colore del testo del bottone
+                                  color: Colors.white, // Colore del testo
+                                  fontSize: 18,
+                                ),
+                              ),
                             ),
                           ],
                         ),

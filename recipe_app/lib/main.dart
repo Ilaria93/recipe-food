@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart'; // Importa la homepage
+import 'screens/home_page.dart';
+import 'screens/recipe_list.dart';
+import 'screens/add_edit_recipe.dart';
+import 'screens/recipe_detail.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options:
+        DefaultFirebaseOptions.currentPlatform, // Utilizza le opzioni generate
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,11 +22,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ricette App',
+      title: 'App di Ricette',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(), // Imposta la homepage come schermata di avvio
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/recipeList': (context) => RecipeList(),
+        '/addRecipe': (context) => const AddEditRecipePage(),
+      },
     );
   }
 }
