@@ -1,43 +1,129 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
+# Flutter
+/.flutter-plugins
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
+# Dependencies
+/dependencies
+
+# Generated files
+/build/
+/test_coverage/
+
+# Output files
+*.log
+*.md
+*.txt
+*.csv
+*.json
+*.xml
+*.yml
+*.yaml
+*.config
+*.cache
+*.tmp
+*.tmps
+*.lock
+*.swp
+*.suo
+*.csproj.user
+*.sln.docstates
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*
+
+# VSCode
+.vscode/
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehfs
+ehthumbs.db
+Thumbs.db
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+._*
+.*
+
+# Windows
+$RECYCLE.BIN/
+Thumbs.db
+This .gitignore file excludes:
+
+Flutter-specific directories and files
+Generated build files
+Output files and logs
+IDE-specific directories (VSCode and IntelliJ IDEA)
+OS-generated files and folders
+macOS and Windows-specific items
+To add this to your project:
+
+Open the terminal in your project directory
+Run the following command:
+echo ".gitignore" >> .gitignore
+cat << EOF >> .gitignore
+# Flutter
+/.flutter-plugins
+
+# Dependencies
+/dependencies
+
+# Generated files
 /build/
+/test_coverage/
 
-# Symbolication related
-app.*.symbols
+# Output files
+*.log
+*.md
+*.txt
+*.csv
+*.json
+*.xml
+*.yml
+*.yaml
+*.config
+*.cache
+*.tmp
+*.tmps
+*.lock
+*.swp
+*.suo
+*.csproj.user
+*.sln.docstates
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*
 
-# Obfuscation related
-app.*.map.json
+# VSCode
+.vscode/
+.idea/
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehfs
+ehthumbs.db
+Thumbs.db
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+._*
+.*
+
+# Windows
+$RECYCLE.BIN/
+Thumbs.db
+EOF

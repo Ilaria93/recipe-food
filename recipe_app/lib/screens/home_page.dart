@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../db/database_helper.dart';
 import 'recipe_list.dart'; // Importa la schermata della lista delle ricette
 
 class HomePage extends StatelessWidget {

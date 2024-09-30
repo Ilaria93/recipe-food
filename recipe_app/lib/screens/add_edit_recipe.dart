@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import '../db/database_helper.dart';
+import '../db/database_helper.dart';
 import '../../models/recipe.dart';
 
 class AddEditRecipePage extends StatefulWidget {
@@ -223,6 +223,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     final newRecipe = Recipe(
+                      id: '', // L'ID verrà generato automaticamente da Firestore
                       title: _titleController.text,
                       description: _descriptionController.text,
                       preparation: _preparationController.text,
@@ -237,11 +238,12 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
 
                     if (widget.recipe == null) {
                       // Aggiungi nuova ricetta
-                      // await DatabaseHelper().insertRecipe(newRecipe);
+                      await DatabaseHelper().addRecipe(newRecipe);
                     } else {
                       // Modifica ricetta esistente
-                      // await DatabaseHelper().updateRecipe(newRecipe);
+                      await DatabaseHelper().updateRecipe(newRecipe);
                     }
+
                     Navigator.pop(context);
                   }
                 },

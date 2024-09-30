@@ -3,7 +3,6 @@ import 'screens/home_page.dart';
 import 'screens/recipe_list.dart';
 import 'screens/add_edit_recipe.dart';
 import 'screens/recipe_detail.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
