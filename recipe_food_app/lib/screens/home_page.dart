@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'recipe_list.dart'; // Importa la schermata della lista delle ricette
+import 'login_page.dart'; // Importa la pagina di login
+import '../services/pocketbase_service.dart'; // Importa il servizio PocketBaseService
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final PocketBaseService _pocketBaseService =
+      PocketBaseService(); // Crea un'istanza del servizio
+
+  HomePage({super.key});
+
+  // Funzione per controllare se l'utente è autenticato
+  bool _isLoggedIn() {
+    return _pocketBaseService
+        .pb.authStore.isValid; // Restituisce true se l'utente è autenticato
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +51,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const Expanded(
-                        child: SizedBox()), // Spazio tra le due sezioni
+                      child: SizedBox(),
+                    ), // Spazio tra le due sezioni
                     Center(
                       child: SizedBox(
                         width: double.infinity,
@@ -50,30 +62,37 @@ class HomePage extends StatelessWidget {
                             // Sottotitolo che introduce la lista
                             const Text(
                               'Ecco la lista delle tue ricette:',
-                              textAlign: TextAlign
-                                  .center, // Centra il testo orizzontalmente
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
                               ),
                             ),
-
                             const SizedBox(height: 40),
                             // Bottone per navigare alla lista delle ricette
                             ElevatedButton(
                               onPressed: () {
-                                // Naviga alla pagina della lista delle ricette
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RecipeList(),
-                                  ),
-                                );
+                                // Controlla se l'utente è autenticato
+                                if (_isLoggedIn()) {
+                                  // Naviga alla pagina della lista delle ricette
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RecipeList(),
+                                    ),
+                                  );
+                                } else {
+                                  // Naviga alla pagina di login
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginPage(),
+                                    ),
+                                  );
+                                }
                               },
                               style: ElevatedButton.styleFrom(
-                                // Cambia il colore di sfondo del bottone
-                                backgroundColor:
-                                    Colors.orangeAccent, // Colore del bottone
+                                backgroundColor: Colors.orangeAccent,
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16.0),
                                 shape: RoundedRectangleBorder(
@@ -83,8 +102,7 @@ class HomePage extends StatelessWidget {
                               child: const Text(
                                 'Vai alla Lista delle Ricette',
                                 style: TextStyle(
-                                  // Cambia il colore del testo del bottone
-                                  color: Colors.white, // Colore del testo
+                                  color: Colors.white,
                                   fontSize: 18,
                                 ),
                               ),

@@ -4,6 +4,7 @@ import '../widgets/recipe_card.dart';
 import 'recipe_details.dart';
 import 'add_edit_recipe.dart';
 import '../services/pocketbase_service.dart';
+import 'home_page.dart'; // Importa la homepage
 
 class RecipeList extends StatefulWidget {
   @override
@@ -23,19 +24,18 @@ class _RecipeListState extends State<RecipeList> {
   Future<void> _loadRecipes() async {
     var response = await _pocketBaseService.getRecipes();
     setState(() {
-      recipes = response
-          .map((e) => Recipe(
-                title: e['title'],
-                description: e['description'],
-                preparation: e['preparation'],
-                imageUrl: e['imageUrl'],
-                cookingTime: e['cookingTime'],
-                difficulty: e['difficulty'],
-                cost: e['cost'],
-                ingredients: List<String>.from(e['ingredients'] ?? []),
-              ))
-          .toList();
+      recipes = response; // Usa direttamente la risposta
     });
+  }
+
+  // Funzione per gestire il logout
+  Future<void> _logout() async {
+    await _pocketBaseService
+        .logout(); // Assicurati di avere un metodo logout nel servizio
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()), // Torna alla home
+    );
   }
 
   @override
@@ -43,23 +43,34 @@ class _RecipeListState extends State<RecipeList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista di Ricette'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout), // Icona di logout
+            onPressed: _logout, // Gestisci il logout
+          ),
+        ],
       ),
-      body: ListView.builder(
-        itemCount: recipes.length,
-        itemBuilder: (context, index) {
-          return RecipeCard(
-            recipe: recipes[index],
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RecipeDetail(recipe: recipes[index]),
-                ),
-              );
-            },
-          );
-        },
-      ),
+      body: recipes.isEmpty // Aggiunto un controllo per la lista vuota
+          ? Center(
+              child: CircularProgressIndicator(),
+            ) // Mostra un caricamento se la lista è vuota
+          : ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return RecipeCard(
+                  recipe: recipes[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RecipeDetail(recipe: recipes[index]),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -121,42 +132,4 @@ class _RecipeListState extends State<RecipeList> {
 //       cost: 0.00,
 //     ),
 //   ];
-
-//   RecipeList({super.key}) : super();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Lista di Ricette'),
-//       ),
-//       body: ListView.builder(
-//         itemCount: recipes.length,
-//         itemBuilder: (context, index) {
-//           return RecipeCard(
-//             recipe: recipes[index],
-//             onTap: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => RecipeDetail(recipe: recipes[index]),
-//                 ),
-//               );
-//             },
-//           );
-//         },
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//               builder: (context) => AddEditRecipePage(),
-//             ),
-//           );
-//         },
-//         child: const Icon(Icons.add),
-//       ),
-//     );
-//   }
 // }

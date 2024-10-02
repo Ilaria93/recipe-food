@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/recipe.dart';
+import '../models/ingredient.dart';
 
 class RecipeDetail extends StatelessWidget {
   final Recipe recipe;
@@ -87,8 +88,8 @@ class RecipeDetail extends StatelessWidget {
               child: Table(
                 border: TableBorder.all(),
                 columnWidths: const {
-                  0: const FlexColumnWidth(2),
-                  1: const FlexColumnWidth(1),
+                  0: FlexColumnWidth(2),
+                  1: FlexColumnWidth(1),
                 },
                 children: [
                   const TableRow(
@@ -115,7 +116,7 @@ class RecipeDetail extends StatelessWidget {
                           TableCell(
                               child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(ingredient.quantity ?? ''),
+                            child: Text(ingredient.quantity.toString()),
                           )),
                         ],
                       )),

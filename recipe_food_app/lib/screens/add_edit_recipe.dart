@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/recipe.dart';
+import '../models/ingredient.dart';
+import '../services/pocketbase_service.dart'; // Importa il servizio PocketBase
 
 class AddEditRecipePage extends StatefulWidget {
   final Recipe? recipe;
@@ -24,6 +26,8 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
   final TextEditingController _costController = TextEditingController();
 
   List<Ingredient> _ingredients = [];
+  final PocketBaseService _pocketBaseService =
+      PocketBaseService(); // Inizializza il servizio
 
   @override
   void initState() {
@@ -88,6 +92,34 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
         );
       },
     );
+  }
+
+  void _saveRecipe() async {
+    if (_formKey.currentState!.validate()) {
+      final newRecipe = Recipe(
+        id: widget.recipe?.id ?? '', // Se è una modifica, usa l'ID esistente
+        title: _titleController.text,
+        description: _descriptionController.text,
+        preparation: _preparationController.text,
+        imageUrl: _imageUrlController.text,
+        difficulty: _difficultyController.text,
+        cookingTime: int.parse(_cookingTimeController.text),
+        servings: int.parse(_servingsController.text),
+        cookingMethod: _cookingMethodController.text,
+        cost: _costController.text,
+        ingredients: _ingredients,
+      );
+
+      if (widget.recipe == null) {
+        // Aggiungi nuova ricetta
+        await _pocketBaseService.addRecipe(newRecipe);
+      } else {
+        // Modifica ricetta esistente
+        await _pocketBaseService.updateRecipe(newRecipe);
+      }
+
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -216,32 +248,7 @@ class _AddEditRecipePageState extends State<AddEditRecipePage> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final newRecipe = Recipe(
-                      title: _titleController.text,
-                      description: _descriptionController.text,
-                      preparation: _preparationController.text,
-                      imageUrl: _imageUrlController.text,
-                      difficulty: _difficultyController.text,
-                      cookingTime: int.parse(_cookingTimeController.text),
-                      servings: int.parse(_servingsController.text),
-                      cookingMethod: _cookingMethodController.text,
-                      cost: double.parse(_costController.text),
-                      ingredients: _ingredients,
-                    );
-
-                    if (widget.recipe == null) {
-                      // Aggiungi nuova ricetta
-                      // Qui dovresti salvare la ricetta nel database
-                    } else {
-                      // Modifica ricetta esistente
-                      // Qui dovresti aggiornare la ricetta nel database
-                    }
-
-                    Navigator.pop(context);
-                  }
-                },
+                onPressed: _saveRecipe,
                 child: Text(widget.recipe == null ? 'Aggiungi' : 'Modifica'),
               ),
             ],
